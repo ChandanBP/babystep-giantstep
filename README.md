@@ -1,1 +1,3 @@
-# babystep-giantstep
+# MKY ukol 3
+
+Babystep-Giantstep algorithm
