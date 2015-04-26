@@ -1,7 +1,3 @@
-/**
- * MI-MKY ukol 3
- * Tomas Susanka
- **/
 
 #include <stdio.h>
 #include <stdint.h>
