@@ -8,6 +8,20 @@
 
 #define DEBUG_F 0
 
+/**
+ * Calculates $num^$power mod $mod
+ */
+int power(int num, int power, int mod)
+{
+	if (power == 0) return 1;
+	int result = 1;
+	for (int i = 1; i <= power; i++)
+	{
+		result = (result * num) % mod;
+	}
+	return result;
+}
+
 int mult(int a, int b, int mod)
 {
 	a = a * b;
@@ -21,7 +35,7 @@ int square(int a, int mod)
 }
 
 /**
- * Finds inverse of @num in @mod in group of order @order
+ * Finds inverse of $num in $mod in group of order $order
  */ 
 int inverse(int num, int mod, int order)
 {
