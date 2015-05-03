@@ -5,31 +5,37 @@
 from functions import *
 import math
 
-mod = 113
-order = 112
-g = 3
-h = 57  # looking for (3^? = 57 mod 113) which is (log3 57 = ? mod 113)
-n = math.ceil(math.sqrt(mod)) # n = 11
-inverse = 38  # 3^-1
+order = 2**35
+g = 0x0000000002
+h = 0x05C8683CCC
+n = math.ceil(math.sqrt(order))
+inverse = 0x0500000000  # g^-1
+
+print("n is", n)
 
 arrayA = [1]
 
 for i in range(1, n):
-    arrayA.append(mult(arrayA[i-1], g, mod))
+    arrayA.append(gf_mult(arrayA[i-1], g))
+    if i % 1000 == 0:
+        print("A")
 arrayA = enumerate(arrayA)
 
 arrayA = sorted(arrayA, key=lambda x: x[1])
 
 # ##### PART 2 ##### #
 
-balloon = power(inverse, n, mod)  # 58
+balloon = gf_power(inverse, n)  # 58
+
+print(hex(balloon))
+quit()
 
 # zero cycle:
 lastPower = 1
 value = h
 for i in range(1, n):
-    lastPower = mult(lastPower, balloon, mod)
-    value = mult(h, lastPower, mod)
+    lastPower = gf_mult(lastPower, balloon)
+    value = gf_mult(h, lastPower)
     check = value_exists(value, arrayA)
     if check:
         break
@@ -39,7 +45,7 @@ finalResult = check[0][0] + i * n
 print(finalResult)
 print("log", g, " of ", h, " is ", finalResult, sep="")
 print("Checking if ", g, "^", finalResult, " = ", h, ":", sep="")
-if power(g, finalResult, mod) == h:
+if gf_power(g, finalResult) == h:
     print("Check valid")
 else:
     print("Check failed, something is wrong")

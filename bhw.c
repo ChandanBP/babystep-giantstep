@@ -54,7 +54,7 @@ void printHexWhole(uint8_t* array, int length)
     {
         printf("%02x", array[i]);
     }
-	printf("\n");
+    printf("\n");
 }
 
 /**
