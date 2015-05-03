@@ -30,7 +30,7 @@ value = h
 for i in range(1, n):
     lastPower = mult(lastPower, balloon, mod)
     value = mult(h, lastPower, mod)
-    check = valueExists(value, arrayA)
+    check = value_exists(value, arrayA)
     if check:
         break
 
