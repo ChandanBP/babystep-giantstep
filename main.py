@@ -10,7 +10,7 @@ order = 112
 g = 3
 h = 57  # looking for (3^? = 57 mod 113) which is (log3 57 = ? mod 113)
 n = math.ceil(math.sqrt(mod)) # n = 11
-inverse = 38 # 3^-1
+inverse = 38  # 3^-1
 
 arrayA = [1]
 
