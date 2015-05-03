@@ -70,24 +70,6 @@ void zeroArray(uint8_t* array, int length)
 }
 
 /**
- * Reads input from stdin
- */
-uint8_t loadInput(uint8_t* a, uint8_t* b)
-{
-    zeroArray(a,ARRAY_LENGTH);
-    zeroArray(b,ARRAY_LENGTH);
-    int res = 0;
-
-    printf("Enter a:");
-    res += scanf("%2x%2x%2x%2x%2x", &a[0], &a[1], &a[2], &a[3], &a[4]);
-    printf("\nEnter b:");
-    res += scanf("%2x%2x%2x%2x%2x", &b[0], &b[1], &b[2], &b[3], &b[4]);
-    printf("\n");
-
-    return res;
-}
-
-/**
  * Adds a + b and stores output in result
  **/
 void add(uint8_t* a, uint8_t* b, uint8_t* result)
@@ -173,23 +155,27 @@ void mult(uint8_t* a, uint8_t* b, uint8_t* result)
 
 int main(int argc, uint8_t** argv)
 {
-	uint8_t temp[ARRAY_LENGTH];
     uint8_t result[ARRAY_LENGTH];
     zeroArray(result, ARRAY_LENGTH);
-
     uint8_t a[ARRAY_LENGTH];
+    zeroArray(a,ARRAY_LENGTH);
     uint8_t b[ARRAY_LENGTH];
+    zeroArray(b,ARRAY_LENGTH);
 
-    uint8_t inverse[ARRAY_LENGTH] = {0x05, 0x00, 0x00, 0x00, 0x00};
+    if (argc != 3) {
+        printf("Usage: [number] [number] \n");
+        return 1;
+    }
 
-    loadInput(a, b);
+    if (strlen(argv[1]) != 10 || strlen(argv[2]) != 10) {
+        printf("One of the numbers length is not 10.\n");
+        return 2;
+    }
 
-    printf("a = ");
-    printHexWhole(a, ARRAY_LENGTH);
-    printf("b = ");
-    printHexWhole(inverse, ARRAY_LENGTH);
+    sscanf(argv[1], "%2x%2x%2x%2x%2x", &a[0], &a[1], &a[2], &a[3], &a[4]);
+    sscanf(argv[2], "%2x%2x%2x%2x%2x", &b[0], &b[1], &b[2], &b[3], &b[4]);
 
-    mult(a, inverse, result);
+    mult(a, b, result);
     printHexWhole(result, ARRAY_LENGTH);
 
 	return 0;
