@@ -10,26 +10,25 @@ g = 0x0000000002
 h = 0x05C8683CCC
 n = math.ceil(math.sqrt(order))
 inverse = 0x0500000000  # g^-1
+balloon = 0x38ab9deae
 
 print("n is", n)
 
+print("creating arrayA")
 arrayA = [1]
-
 for i in range(1, n):
     arrayA.append(gf_mult(arrayA[i-1], g))
-    if i % 1000 == 0:
-        print("A")
+
+print("enumerating arrayA")
 arrayA = enumerate(arrayA)
 
+print("sorting arrayA")
 arrayA = sorted(arrayA, key=lambda x: x[1])
 
 # ##### PART 2 ##### #
+print("starting part 2")
 
-balloon = gf_power(inverse, n)  # 58
-
-print(hex(balloon))
-quit()
-
+print("starting search and stuff")
 # zero cycle:
 lastPower = 1
 value = h
@@ -43,9 +42,9 @@ for i in range(1, n):
 finalResult = check[0][0] + i * n
 
 print(finalResult)
-print("log", g, " of ", h, " is ", finalResult, sep="")
-print("Checking if ", g, "^", finalResult, " = ", h, ":", sep="")
-if gf_power(g, finalResult) == h:
-    print("Check valid")
-else:
-    print("Check failed, something is wrong")
+# print("log", g, " of ", h, " is ", finalResult, sep="")
+# print("Checking if ", g, "^", finalResult, " = ", h, ":", sep="")
+# if gf_power(g, finalResult) == h:
+#     print("Check valid")
+# else:
+#     print("Check failed, something is wrong")
