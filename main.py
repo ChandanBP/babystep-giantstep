@@ -9,29 +9,37 @@ mod = 113
 order = 112
 g = 3
 h = 57  # looking for (3^? = 57 mod 113) which is (log3 57 = ? mod 113)
-
-a = 2 >> 1;
-print(bin(a))
-exit()
-
 n = math.ceil(math.sqrt(mod)) # n = 11
+inverse = 38 # 3^-1
 
-mults = [1]
+arrayA = [1]
 
 for i in range(1, n):
-    mults.append(mult(mults[i-1], g, mod))
-mults = enumerate(mults)
+    arrayA.append(mult(arrayA[i-1], g, mod))
+arrayA = enumerate(arrayA)
 
-mults = sorted(mults, key=lambda x: x[1])
+arrayA = sorted(arrayA, key=lambda x: x[1])
 
-for i in mults:
-    print(i)
+# ##### PART 2 ##### #
 
-# tmp = power(tmp, n, mod)  # 58
-# todo: throw away all previous results
-# tmp = power(tmp, n, mod); // 58
-# arrayB[0] = h;
-# for (int i = 1; i < n; ++i)
-# {
-	# arrayB[i] = mult(arrayB[i-1], tmp, mod);
-# }
+balloon = power(inverse, n, mod)  # 58
+
+# zero cycle:
+lastPower = 1
+value = h
+for i in range(1, n):
+    lastPower = mult(lastPower, balloon, mod)
+    value = mult(h, lastPower, mod)
+    check = valueExists(value, arrayA)
+    if check:
+        break
+
+finalResult = check[0][0] + i * n
+
+print(finalResult)
+print("log", g, " of ", h, " is ", finalResult, sep="")
+print("Checking if ", g, "^", finalResult, " = ", h, ":", sep="")
+if power(g, finalResult, mod) == h:
+    print("Check valid")
+else:
+    print("Check failed, something is wrong")
