@@ -24,7 +24,7 @@ def add(a, b, mod):
     return (a + b) % mod
 
 
-def value_exists(needle, haystack):
+def value_exists(needle, haystack): # todo break when found
     return [item for item in haystack if item[1] == needle]
 
 

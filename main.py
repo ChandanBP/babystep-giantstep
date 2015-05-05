@@ -1,6 +1,7 @@
 #
 # MKY assigment 3 Babystep-Giantstep alg
 #
+# finalResult = 0x6634633308
 
 from functions import *
 import math
@@ -10,7 +11,8 @@ g = 0x0000000002
 h = 0x05C8683CCC
 n = math.ceil(math.sqrt(order))
 inverse = 0x0500000000  # g^-1
-balloon = 0x38ab9deae
+balloon = 0x038ab9deae
+
 
 print("n is", n)
 
