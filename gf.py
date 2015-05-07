@@ -1,7 +1,4 @@
 
-# uint8_t pattern[8] = {0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
-
-
 def print_bin(number):
     print(format(number, '040b'))
 
@@ -35,13 +32,13 @@ def lfsr(number):
     return number
 
 
-def gf_mult(a, b):
+def mult(a, b):
     result = 0
     tmp = 1 << 35  # or something like that
 
     for i in range(0, 36):
         if b & tmp:
-            result = gf_add(result, a)
+            result = add(result, a)
 
         if i != 35:
             result = lfsr(result)
@@ -52,11 +49,6 @@ def gf_mult(a, b):
     return result
 
 
-def gf_add(a, b):
+def add(a, b):
     # delete first bit?
     return a ^ b
-
-# first highest is 0x07 !!!!
-print_hex(gf_mult(0x0400000000, 0x04f0fff201))
-
-# print(gf_mult(0x12, 0x01))
