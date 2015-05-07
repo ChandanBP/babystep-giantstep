@@ -37,13 +37,14 @@ def lfsr(number):
 
 def gf_mult(a, b):
     result = 0
-    tmp = 1 << 36  # or something like that
+    tmp = 1 << 35  # or something like that
 
     for i in range(0, 36):
         if b & tmp:
             result = gf_add(result, a)
 
-        lfsr(result)
+        if i != 35:
+            result = lfsr(result)
 
         tmp = tmp >> 1
 
@@ -56,6 +57,6 @@ def gf_add(a, b):
     return a ^ b
 
 # first highest is 0x07 !!!!
-print_hex(lfsr(0x0400fff201))
+print_hex(gf_mult(0x0400000000, 0x04f0fff201))
 
 # print(gf_mult(0x12, 0x01))
