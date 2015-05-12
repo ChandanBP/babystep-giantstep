@@ -40,7 +40,7 @@ arrayA = sorted(arrayA, key=lambda x: x[1])
 # ##### PART 2 ##### #
 print("starting part 2")
 
-print("starting search and stuff")
+print("starting search")
 
 # zero cycle:
 lastPower = 1
@@ -55,9 +55,3 @@ for i in range(1, n):
 finalResult = check[0] + i * n
 
 print(finalResult)
-# print("log", g, " of ", h, " is ", finalResult, sep="")
-# print("Checking if ", g, "^", finalResult, " = ", h, ":", sep="")
-# if gf_power(g, finalResult) == h:
-#     print("Check valid")
-# else:
-#     print("Check failed, something is wrong")
