@@ -1,19 +1,21 @@
 #
 # MKY assigment 3 Babystep-Giantstep alg
 #
-# finalResult = 0x6634633308
+# finalResult = 0x18883585159 ?
 
 
 from gf import *
 import math
+from bisect import bisect_left
 
-def value_exists(needle, haystack):
-	# finds if needle exists in haystack of tuples and returns it if so
-	for item in haystack:
-		if item[1] > needle:
-			return None
-		if item[1] == needle:
-			return item
+
+def value_exists(needle, haystack, keys):
+    # finds if needle exists in haystack of tuples and returns it if so
+    i = bisect_left(keys, needle)
+    if i != len(keys) and keys[i] == needle:
+        return haystack[bisect_left(keys, needle)]
+    else:
+        return None
 
 
 order = 2**35 - 1
@@ -36,6 +38,9 @@ arrayA = enumerate(arrayA)
 print("sorting arrayA")
 arrayA = sorted(arrayA, key=lambda x: x[1])
 
+print("getting keys")
+keys = [item[1] for item in arrayA]  # precomputed list of keys
+
 # ##### PART 2 ##### #
 print("starting part 2")
 
@@ -47,10 +52,10 @@ value = h
 for i in range(1, n):
     lastPower = mult(lastPower, balloon)
     value = mult(h, lastPower)
-    check = value_exists(value, arrayA)
+    check = value_exists(value, arrayA, keys)
     if check:
         break
 
-finalResult = check[0] + i * n
+finalResult = check[0] + i * n # i * n too big?? shouldn't be xoring? todo
 
 print(finalResult)
