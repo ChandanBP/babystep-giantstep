@@ -16,13 +16,12 @@ def value_exists(needle, haystack):
 			return item
 
 
-order = 2**35
+order = 2**35 - 1
 g = 0x0000000002
-h = 0x05C8683CCC
+h = 0x05c8683cce
 n = math.ceil(math.sqrt(order))
 inverse = 0x0500000000  # g^-1
 balloon = 0x038ab9deae
-
 
 print("n is", n)
 
