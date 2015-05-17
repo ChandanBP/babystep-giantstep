@@ -1,19 +1,18 @@
 #
 # MKY assigment 3 Babystep-Giantstep alg
-#
 # finalResult = 0x04658ca487
-
+# Tomas Susanka
+#
 
 from gf import *
 import math
 from bisect import bisect_left
 
-
-def value_exists(needle, haystack, keys):
+def value_exists(needle, haystack, values):
     # finds if needle exists in haystack of tuples and returns it if so
-    i = bisect_left(keys, needle)
-    if i != len(keys) and keys[i] == needle:
-        return haystack[bisect_left(keys, needle)]
+    i = bisect_left(values, needle)
+    if i != len(values) and values[i] == needle:
+        return haystack[i]
     else:
         return None
 
@@ -23,38 +22,30 @@ g = 0x0000000002
 h = 0x05c8683cce
 n = math.ceil(math.sqrt(order))
 inverse = 0x0500000000  # g^-1
-balloon = 0x038ab9deae
+multiplier = 0x038ab9deae # inverse^n
 
-print("n is", n)
-
-print("creating arrayA")
-arrayA = [1]
+# creates list of g^i values
+array = [1]
 for i in range(1, n):
-    arrayA.append(mult(arrayA[i-1], g))
+    array.append(mult(array[i-1], g))
 
-print("enumerating arrayA")
-arrayA = enumerate(arrayA)
+# sorts array but preservers indexes
+array = enumerate(array)
+array = sorted(array, key=lambda x: x[1])
 
-print("sorting arrayA")
-arrayA = sorted(arrayA, key=lambda x: x[1])
+# moves all values into seperate array, so binary search can be conducted
+values = [item[1] for item in array]
 
-print("getting keys")
-keys = [item[1] for item in arrayA]  # precomputed list of keys
-
-# ##### PART 2 ##### #
-print("starting part 2")
-
-print("starting search")
-
-# zero cycle:
+# creates h*g^{-in} and searches for that value in array right away
 lastPower = 1
 value = h
 for i in range(1, n):
-    lastPower = mult(lastPower, balloon)
+    lastPower = mult(lastPower, multiplier)
     value = mult(h, lastPower)
-    check = value_exists(value, arrayA, keys)
+    check = value_exists(value, array, values)
     if check:
         break
 
+# when found x = j+in:
 finalResult = check[0] + i * n
 print_hex(finalResult)

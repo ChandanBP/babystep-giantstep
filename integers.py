@@ -1,8 +1,6 @@
 #
 # MKY assigment 3 Babystep-Giantstep alg
-# help functions
 #
-import subprocess
 
 
 def power(num, power, mod):
