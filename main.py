@@ -1,7 +1,7 @@
 #
 # MKY assigment 3 Babystep-Giantstep alg
 #
-# finalResult = 0x18883585159 ?
+# finalResult = 0x04658ca487
 
 
 from gf import *
@@ -56,6 +56,5 @@ for i in range(1, n):
     if check:
         break
 
-finalResult = check[0] + i * n # i * n too big?? shouldn't be xoring? todo
-
-print(finalResult)
+finalResult = check[0] + i * n
+print_hex(finalResult)
