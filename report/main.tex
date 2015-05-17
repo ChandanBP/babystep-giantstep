@@ -64,22 +64,54 @@ Pro zadané $g(x)$ a mé soukromé $h(x)$ vyjde:
 
 \section{Implementace}
 
-Nejdříve jsem celý algoritmus implementoval pro celá čísla, abych si pořádně uvědomil, jak algoritmus funguje. Poté jsem implementoval násobení a sčítání v tělese $GF(2^{35})$\mbox{*}.
+Po dlouhé úvaze jsem zvolil pro implementaci jazyk Python. Začal jsem sice v jazyce C, ale došel jsem k názoru, že pro řazení (a zachování indexů) bude lepší využít některý z \uv{vyšších jazyků}.
 
-Násobení je implementováno pomocí algoritmu Double-and-Add. Pro vynásobení $A=Ax \bmod {f(x)}$ je použito LFSR (Linear feedback shift register). Oba tyto postupy jsme se učili v předmětu MI-BHW, a proto mi přišlo vhodné je použít.
+Nejdříve jsem celý algoritmus implementoval pro celá čísla, abych si plně uvědomil, jak algoritmus funguje. Poté jsem implementoval násobení a sčítání v tělese $GF(2^{35})$\mbox{*}.
+
+Násobení je implementováno pomocí algoritmu Double-and-Add. Pro vynásobení $a=ax \bmod {f(x)}$ je použito LFSR (Linear feedback shift register). Oba tyto postupy jsme se učili v předmětu MI-BHW, a proto mi přišlo vhodné je použít.
 
 Sčítání je pouze jednoduché využití operátoru XOR.
 
 \section{Problémy}
 Problémů jsem měl až nečekaně hodně. Při implementaci násobení a práci s bity se člověk velmi lehce sekne.
 
-Největší problém se kterým jsem se setkal byla nízká efektivita programu. Poté co jsem odladil násobení i hlavní část programu, jsem dal oba celky dohromady a výpočet mi trval kolem 15 minut. Dlouhou dobu jsem nemohl objevit kde je zakopaný pes, stále jsem hledal chybu v implementaci násobení. Chyba samozřejmě byla úplně někde jinde.
+Největší problém se kterým jsem se setkal byla nízká efektivita programu. Poté co jsem odladil násobení i hlavní část programu, jsem dal oba celky dohromady a výpočet mi trval kolem 15 minut. Dlouhou dobu jsem nemohl objevit, kde je zakopaný pes, stále jsem hledal chybu v implementaci násobení. Chyba samozřejmě byla úplně někde jinde.
 
-Přestože jsem hodnoty v tabulce seřadil, hledal jsem v nich stále lineárně. Je však zřejmé, že v tomto případě je nasnadě využít binární půlení. Ze složitosti $O(n^2)$ jsem se náhle dostal na složitost $O(n\log{}n)$, což dělá dramatický rozdíl. Řešení po této opravě trvá 15 vteřin.
+Přestože jsem hodnoty v tabulce seřadil, hledal jsem v nich stále lineárně. Je však zřejmé, že v tomto případě je nasnadě využít binární půlení. Ze složitosti $O(n^2)$ jsem se náhle dostal na složitost $O(n\log{}n)$, což dělá dramatický rozdíl. Řešení po této opravě trvá cca 15 vteřin.
+
+\section{Vylepšení programu}
+
+Program by se nejspíše mohl dále vylepšovat. Příhodné by bylo zvlášť implementovat mocnění, které lze lehce vytvořit tzv. \emph{vkládáním nul mezi}. Stále je však potřeba číslo zmodulovat, takže se myslím, že zrychlení bude relativně malé. 
+
+Další možnost je si druhé mocniny předpočítat. Opět se sice nevyhneme modulu, ale je pravděpodobné, že toto řešení bude nejrychlejší.
+
+Protože jsem nevěřil, že by tato vylepšení přinesla markantní rozdíly, zajímalo mě jaký je rozdíl mezi jazykem Python a C, který jsem opustil.
+
+\section{Benchmark}
+
+Vytvořil jsem tedy velmi jednoduchý benchmark. Napsal jsem dva malé prográmky v C a Python, která vynásobí 100\,000\,000 čísel. Pro jednoduchost programy nenásobí v rámci tělesa GF, ale obyčejná desetinná čísla. Jak bylo možné očekávat, C je výrazně rychlejší:
+
+\begin{table}[h]
+	\centering
+    \begin{tabular}{ll}
+    C      & 0.84 s \\
+    Python & 27.1 s \\
+    \end{tabular}
+\end{table}
+
+
+Pokud bych algoritmus implementovat v čistém C, dá se očekávat výrazné zrychlení. Musíme však brát v potaz, že by autor musel implementovat řazení a hledání, případně použít C++. Tam už by rozdíl nebyl takový. Je tedy nutné brát benchmark s rezervou.
 
 
 \section{Příloha}
 
+Příloha obsahuje:
 
+\begin{itemize}
+	\item main.py a gf.py - řešení jako takové, hlavní soubor je main.py
+	\item mathematica - notebook pro kotrolu řešení
+	\item benchmark - jednoduché prográmky pro malý benchmark
+	\item report - tato zpráva
+\end{itemize}
 
 \end{document}
