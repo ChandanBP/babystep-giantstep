@@ -1,0 +1,73 @@
+\documentclass[czech,a4paper,11pt]{article}
+%\documentclass[]{article}
+\usepackage[pdftex]{graphicx}
+\usepackage{graphicx}
+\usepackage[czech]{babel}		
+\usepackage[T1]{fontenc}	
+\usepackage[utf8]{inputenc} 	
+\newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
+\usepackage{enumerate}
+\usepackage{url}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+
+\includegraphics[width=0.15\textwidth]{./cvut-logo-bw.pdf}~\\[1cm]
+
+\textsc{\LARGE České vysoké učení technické }\\[1.5cm]
+
+\textsc{\Large MI-MKY úkol 3}\\[0.5cm]
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries Lámání DLP pomocí Babystep-Giantstep algoritmu \\[0.4cm] }
+
+\HRule \\[1.5cm]
+
+% Author and supervisor
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Autor:}\\
+Tomáš \textsc{Sušánka}
+\end{flushleft}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+{\large \today}
+
+\end{center}
+\end{titlepage}
+
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{X}
+Úkolem bylo implementovat algoritmus Babystep-Giantstep pro prolomení problému diskrétního algoritmu.
+
+Program jsem začal psát v jazyce C, ale brzy jsem si uvědomil, že pro řazení čísel (kde potřebuji zachovat indexy) budu muset použít buď C++, anebo některý jiný z \textit{vyšších} jazyků.
+
+
+\section{Postup řešení}
+Nejdříve jsem celý algoritmus implementoval pro celá čísla, abych si pořádně uvědomil, jak algoritmus funguje. Poté jsem implementoval násobení a sčítání v tělese $GF(2^{35})$\mbox{*}.
+
+Násobení je implementováno pomocí algoritmu Double-and-Add. Pro vynásobení $A=Ax \bmod {f(x)}$ je použito LFSR (Linear feedback shift register). Oba tyto postupy jsme se učili v předmětu MI-BHW, a proto mi přišlo vhodné je použít.
+
+Sčítání je pouze jednoduché využití operátoru XOR.
+
+\section{x}
+Problémů jsem měl až nečekaně hodně. Za prvé při implementaci násobení pomocí LFSR se člověk velmi lehce sekne a je místy obtížné si uvědomit s kterým bitem pracuje.
+
+Největší problém se kterým jsem se setkal byla nízká efektivita programu. Poté co jsem odladil násobení i hlavní část programu, jsem dal oba celky dohromady a výpočet mi trval kolem 15 minut. Opravdu dlouhou dobu jsem nemohl objevit kde je zakopaný pes, stále jsem hledal chybu v implemtanci násobení. Jak to tak ale bývá, chyba byla úplně někde jinde.
+
+Přestože jsem hodnoty v tabulce seřadil, hledal jsem v nich stále lineárně. Je však zřejmé, že v tomto případě je nasnadě využít binární půlení. Ze složitosti On^2 jsem se náhle dostal na složitost Ologn n, což dělá dramatický rozdíl. Řešení po této opravě trvá ~15 vteřin.
+
+
+\end{document}
