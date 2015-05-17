@@ -56,7 +56,7 @@ Pro zadané $g(x)$ a mé soukromé $h(x)$ vyjde:
 
 \begin{table}[h!]
   \begin{center}
-	0x4658ca487
+	$\texttt{0x4658CA487}$
 	$x^{34}+x^{30}+x^{29}+x^{26}+x^{24}+x^{23}+x^{19}+x^{18}+x^{15}+x^{13}+x^{10}+x^7+x^2+x+1$
   \end{center}
 \end{table}
@@ -75,13 +75,13 @@ Sčítání je pouze jednoduché využití operátoru XOR.
 \section{Problémy}
 Problémů jsem měl až nečekaně hodně. Při implementaci násobení a práci s bity se člověk velmi lehce sekne.
 
-Největší problém se kterým jsem se setkal byla nízká efektivita programu. Poté co jsem odladil násobení i hlavní část programu, jsem dal oba celky dohromady a výpočet mi trval kolem 15 minut. Dlouhou dobu jsem nemohl objevit, kde je zakopaný pes, stále jsem hledal chybu v implementaci násobení. Chyba samozřejmě byla úplně někde jinde.
+Největší problém se kterým jsem se setkal byla nízká efektivita programu. Poté co jsem odladil násobení i hlavní část programu, jsem dal oba celky dohromady a výpočet mi trval kolem 15 minut. Dlouhou dobu jsem nemohl objevit, kde je zakopaný pes, stále jsem hledal chybu v implementaci násobení.
 
-Přestože jsem hodnoty v tabulce seřadil, hledal jsem v nich stále lineárně. Je však zřejmé, že v tomto případě je nasnadě využít binární půlení. Ze složitosti $O(n^2)$ jsem se náhle dostal na složitost $O(n\log{}n)$, což dělá dramatický rozdíl. Řešení po této opravě trvá cca 15 vteřin.
+Chyba však byla úplně někde jinde. Přestože jsem hodnoty v tabulce seřadil, hledal jsem v nich stále lineárně. Je však zřejmé, že v tomto případě je nasnadě využít binární půlení. Ze složitosti $O(n^2)$ jsem se náhle dostal na složitost $O(n\log{}n)$, což dělá dramatický rozdíl. Řešení po této opravě trvá cca 15 vteřin.
 
 \section{Vylepšení programu}
 
-Program by se nejspíše mohl dále vylepšovat. Příhodné by bylo zvlášť implementovat mocnění, které lze lehce vytvořit tzv. \emph{vkládáním nul mezi}. Stále je však potřeba číslo zmodulovat, takže se myslím, že zrychlení bude relativně malé. 
+Program by se nejspíše dal dále vylepšovat. Příhodné by bylo zvlášť implementovat mocnění, které lze lehce vytvořit tzv. \emph{vkládáním nul mezi}. Stále je však potřeba číslo zmodulovat, takže si myslím, že zrychlení bude relativně malé. 
 
 Další možnost je si druhé mocniny předpočítat. Opět se sice nevyhneme modulu, ale je pravděpodobné, že toto řešení bude nejrychlejší.
 
