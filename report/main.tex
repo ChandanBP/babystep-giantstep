@@ -49,25 +49,37 @@ Tomáš \textsc{Sušánka}
 \tableofcontents
 
 \newpage
-\section{X}
-Úkolem bylo implementovat algoritmus Babystep-Giantstep pro prolomení problému diskrétního algoritmu.
+\section{Zadání a řešení}
+Úkolem bylo implementovat algoritmus Babystep-Giantstep, který řeší problém diskrétního algoritmu.
 
-Program jsem začal psát v jazyce C, ale brzy jsem si uvědomil, že pro řazení čísel (kde potřebuji zachovat indexy) budu muset použít buď C++, anebo některý jiný z \textit{vyšších} jazyků.
+Pro zadané $g(x)$ a mé soukromé $h(x)$ vyjde:
+
+\begin{table}[h!]
+  \begin{center}
+	0x4658ca487
+	$x^{34}+x^{30}+x^{29}+x^{26}+x^{24}+x^{23}+x^{19}+x^{18}+x^{15}+x^{13}+x^{10}+x^7+x^2+x+1$
+  \end{center}
+\end{table}
 
 
-\section{Postup řešení}
+\section{Implementace}
+
 Nejdříve jsem celý algoritmus implementoval pro celá čísla, abych si pořádně uvědomil, jak algoritmus funguje. Poté jsem implementoval násobení a sčítání v tělese $GF(2^{35})$\mbox{*}.
 
 Násobení je implementováno pomocí algoritmu Double-and-Add. Pro vynásobení $A=Ax \bmod {f(x)}$ je použito LFSR (Linear feedback shift register). Oba tyto postupy jsme se učili v předmětu MI-BHW, a proto mi přišlo vhodné je použít.
 
 Sčítání je pouze jednoduché využití operátoru XOR.
 
-\section{x}
-Problémů jsem měl až nečekaně hodně. Za prvé při implementaci násobení pomocí LFSR se člověk velmi lehce sekne a je místy obtížné si uvědomit s kterým bitem pracuje.
+\section{Problémy}
+Problémů jsem měl až nečekaně hodně. Při implementaci násobení a práci s bity se člověk velmi lehce sekne.
 
-Největší problém se kterým jsem se setkal byla nízká efektivita programu. Poté co jsem odladil násobení i hlavní část programu, jsem dal oba celky dohromady a výpočet mi trval kolem 15 minut. Opravdu dlouhou dobu jsem nemohl objevit kde je zakopaný pes, stále jsem hledal chybu v implemtanci násobení. Jak to tak ale bývá, chyba byla úplně někde jinde.
+Největší problém se kterým jsem se setkal byla nízká efektivita programu. Poté co jsem odladil násobení i hlavní část programu, jsem dal oba celky dohromady a výpočet mi trval kolem 15 minut. Dlouhou dobu jsem nemohl objevit kde je zakopaný pes, stále jsem hledal chybu v implementaci násobení. Chyba samozřejmě byla úplně někde jinde.
 
-Přestože jsem hodnoty v tabulce seřadil, hledal jsem v nich stále lineárně. Je však zřejmé, že v tomto případě je nasnadě využít binární půlení. Ze složitosti On^2 jsem se náhle dostal na složitost Ologn n, což dělá dramatický rozdíl. Řešení po této opravě trvá ~15 vteřin.
+Přestože jsem hodnoty v tabulce seřadil, hledal jsem v nich stále lineárně. Je však zřejmé, že v tomto případě je nasnadě využít binární půlení. Ze složitosti $O(n^2)$ jsem se náhle dostal na složitost $O(n\log{}n)$, což dělá dramatický rozdíl. Řešení po této opravě trvá 15 vteřin.
+
+
+\section{Příloha}
+
 
 
 \end{document}
